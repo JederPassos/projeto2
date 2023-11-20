@@ -19,14 +19,4 @@ Class Servico {
     }
 }
 
-// Instanciando e configurando um objeto da classe Servico
-$servico = new Servico("OS123", "Em andamento", "Manutenção de motor", "2023-01-01");
-$servico->Fazer();
-
-// Exemplo de acesso aos atributos após a instância
-echo "Ordem de Serviço: " . $servico->orden_servico . "<br>";
-echo "Situação: " . $servico->situacao . "<br>";
-echo "Descrição do Serviço: " . $servico->descricao_servico . "<br>";
-echo "Data: " . $servico->data . "<br>";
-
 ?>
