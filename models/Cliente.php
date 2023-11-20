@@ -1,6 +1,8 @@
 <?php
 
-class Cliente
+require('../Conexao.php');
+
+class Cliente extends ConexaoMySQL
 {
     public $nome;
     private $cpf;
