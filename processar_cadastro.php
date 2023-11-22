@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Verifique se a inserção foi bem-sucedida
     if ($insercao_sucesso) {
         // Redirecione para a página de sucesso ou faça o que for necessário
-        header("Location: cadastro_sucesso.php");
+        header("Location: login.php");
         exit();
     } else {
         // Exiba uma mensagem de erro (pode redirecionar de volta para a página de cadastro)
