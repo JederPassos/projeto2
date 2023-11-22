@@ -1,0 +1,77 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+    width: 100%;
+    min-height: 100vh;
+    height: 100vh;
+    /* colocando height do body pra ocupar 100% da viewport do dispositivo */
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url(./1339172.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: absolute;
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 20px;
+    color:white
+    
+  }
+  
+  .container {
+    /*  alinhando a caixa cinza no meio da tela/página  */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    /* pra ocupar 100% que ele conseguir */
+  }
+  
+  .form-container {
+  
+  
+    /*  alinhando os itens no centro com display flex  */
+    display: flex;
+    flex-direction: column;
+    /* mudando a direção para coluna */
+    align-items: center;
+    /* alinhando iitens no centro verticalmente(interessante notar que isso fica invertido com o justify-content devido ao flex direction) */
+  
+    /* adicionando espacamento entre itens */
+    gap: 1rem;
+  
+    /*  apenas stilizacao da caixaa  */
+    background: rgb(32 32 36);
+    padding: 2rem;
+    border-radius: 0.675rem;
+  }
+  
+  
+  .form-container .form-btn {
+    /*  apenas stilizacao do botao  */
+    text-decoration: none;
+    background-image: linear-gradient(to right,rgb(0, 92, 197), rgb(90, 20, 220));
+    font-size: 15px;
+    width: 100%;
+    border: none;
+    padding: 15px;
+    color: #FFF;
+    cursor: pointer;
+    border-radius: 10px;
+    text-align: center;
+  }
+  #submit{
+    background-image: linear-gradient(to right,rgb(0, 92, 197), rgb(90, 20, 220));
+    width: 100%;
+    border: none;
+    padding: 15px;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 10px;
+    
+  }
