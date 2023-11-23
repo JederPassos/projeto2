@@ -10,6 +10,12 @@ class Cliente extends ConexaoMySQL
     public $Nome;
     public $Senha;
 
+    public function __construct()
+    {
+        // Chame o construtor da classe pai para estabelecer a conexão com o banco de dados
+        parent::__construct();
+    }
+
     // Método para criar um novo cliente
     public function criarCliente($Telefone, $Email, $Nome, $Senha)
     {
@@ -122,7 +128,7 @@ class Cliente extends ConexaoMySQL
                 $cliente = $result->fetch_assoc();
 
                 // Verificar a senha usando password_verify
-                if (password_verify($senha, $cliente['Senha'])) {
+                if ($senha == $cliente['Senha']) {
                     // Se a senha corresponder, autenticação bem-sucedida
                     return true;
                 }
@@ -133,22 +139,30 @@ class Cliente extends ConexaoMySQL
         return false;
     }
 
-
-    // Método para inserir um novo cliente no banco de dados
-    public function inserirCliente($nome, $telefone, $email, $senha)
+    public function obterClientePorEmail($email)
     {
-        $nome = $this->conexao->real_escape_string($nome);
-        $telefone = $this->conexao->real_escape_string($telefone);
+        // Sanitize inputs to prevent SQL injection (use prepared statements for better security)
         $email = $this->conexao->real_escape_string($email);
-        $senha = $this->conexao->real_escape_string($senha);
-
-        // Hash da senha (use um método seguro, como password_hash)
-        $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
-
-        // Consulta para inserir o novo cliente no banco de dados
-        $query = "INSERT INTO Cliente (Nome, Telefone, Email, Senha) VALUES ('$nome', '$telefone', '$email', '$senha_hash')";
-        $insercao_sucesso = $this->conexao->query($query);
-
-        return $insercao_sucesso;
+        $query = "SELECT * FROM Cliente WHERE Email = ? LIMIT 1";
+        // Preparar a consulta
+        $stmt = $this->conexao->prepare($query);
+        // Verificar se a preparação da consulta foi bem-sucedida
+        if ($stmt) {
+            // Bind dos parâmetros
+            $stmt->bind_param('s', $email);
+            // Executar a consulta
+            $stmt->execute();
+            // Obter o resultado da consulta
+            $result = $stmt->get_result();
+            // Verificar se encontrou um cliente
+            if ($result->num_rows == 1) {
+                // Obter os dados do cliente
+                $cliente = $result->fetch_assoc();
+                // Retornar o cliente
+                return $cliente;
+            }
+        }
+        // Se não encontrou um cliente, retornar false
+        return false;
     }
 }

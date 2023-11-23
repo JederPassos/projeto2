@@ -1,8 +1,6 @@
 <?php
-require_once('models/Cliente.php');
+require('models/Cliente.php');
 
-// Verifique se o formulário foi enviado
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Recupere os dados do formulário
     $nome = $_POST['nome'];
     $telefone = $_POST['telefone'];
@@ -13,10 +11,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cliente = new Cliente();
 
     // Faça a inserção no banco de dados
-    $insercao_sucesso = $cliente->inserirCliente($nome, $telefone, $email, $senha);
+    $insercao_sucesso = $cliente->criarCliente($telefone, $email, $nome, $senha);
 
-    // Verifique se a inserção foi bem-sucedida
-    if ($insercao_sucesso) {
+     // Verifique se a inserção foi bem-sucedida
+     if ($insercao_sucesso) {
         // Redirecione para a página de sucesso ou faça o que for necessário
         header("Location: login.php");
         exit();
@@ -24,5 +22,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Exiba uma mensagem de erro (pode redirecionar de volta para a página de cadastro)
         echo "Erro ao cadastrar usuário!";
     }
-}
+
 ?>

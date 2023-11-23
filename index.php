@@ -10,6 +10,7 @@ if (!isset($_SESSION['usuario_logado'])) {
 }
 
 // Resto do seu código HTML e formulário aqui
+echo $_SESSION['id'];
 ?>
 
 <!DOCTYPE html>
@@ -25,26 +26,42 @@ if (!isset($_SESSION['usuario_logado'])) {
 <body>
 
     <div class="box">
-        <form action>
+        <form action="agendar.php" method="POST">
             <fieldset>
                 <legend>Agendamento</legend>
-
-                <!-- criar caixas de dialogo -->
 
                 <div class="inputbox">
                     <label for="nome"> Nome :</label>
                     <input type="text" name="nome" id="nome" class="inputUser" required>
 
                 </div>
-                <!-- Resto do seu formulário ... -->
+
+                <div class="inputbox">
+                    <label for="nome"> Marca :</label>
+                    <input type="text" name="marca" id="marca" class="inputUser" required>
+
+                </div>
+
+                <div class="inputbox">
+                    <label for="nome"> Modelo :</label>
+                    <input type="text" name="marca" id="marca" class="inputUser" required>
+
+                </div>
+
+                <div class="inputbox">
+                    <label for="nome"> Placa :</label>
+                    <input type="text" name="marca" id="marca" class="inputUser" required>
+
+                </div>
 
                 <div class="inputbox">
                     <label for="data_agendada"><br> Agendamento :</label>
                     <input type="date" name="data_agendada" id="data_agendada" class="inputUser" required>
 
-                    <!-- criar botão de envio -->
-
                 </div> <br>
+
+                <input type="text" name="clienteid" hidden value="<?=$_SESSION['id']?>">
+                
                 <input type="submit" name="submit" id="submit">
             </fieldset>
         </form>

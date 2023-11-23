@@ -28,7 +28,7 @@ ENGINE = InnoDB;
 -- Table `DB_oficial`.`Cliente`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `DB_oficial`.`Cliente` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `Telefone` INT NULL,
   `Email` VARCHAR(100) NULL,
   `Nome` VARCHAR(45) NOT NULL,
@@ -114,7 +114,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `DB_oficial`.`Possui` (
   `id_tipo_servico` INT NOT NULL,
-  `id_ordem_servico` VARCHAR(150) NOT NULL,
+  `id_ordem_servico` INT NOT NULL,
   INDEX `fk_possui_Serviço1_idx` (`id_tipo_servico` ASC),
   INDEX `fk_Possui_Tipo_de_Servico1_idx` (`id_ordem_servico` ASC),
   CONSTRAINT `fk_possui_Serviço1`

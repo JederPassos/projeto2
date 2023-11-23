@@ -11,7 +11,7 @@
 
 <body>
     <div class="background">
-        <form method="post" action="processar_cadastro.php">
+        <form method="POST" action="processarcadastro.php">
             <div class="container">
                 <div class="form-container">
                     <h1>Register</h1>

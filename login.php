@@ -20,6 +20,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($cliente->autenticar($email, $senha)) {
         // Se a autenticação for bem-sucedida, redirecione para a página principal ou faça o que for necessário
         $_SESSION['usuario_logado'] = true; // Defina uma variável de sessão para indicar que o usuário está logado
+        $clientedata = $cliente->obterClientePorEmail($email);
+
+        $_SESSION['id'] = $clientedata['id'];
+
         header("Location: index.php");
         exit();
     } else {
