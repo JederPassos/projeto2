@@ -27,7 +27,7 @@ class OrdemServico extends ConexaoMySQL
     }
 
     // Método privado para inserir automaticamente uma alocação na tabela Alocar
-    private function inserirAlocacaoAutomatica($id_ordem_servico)
+    public function inserirAlocacaoAutomatica($id_ordem_servico)
     {
         // Aqui você precisa decidir como obter o ID do funcionário disponível.
         // Suponha que obterFuncionariosDisponiveis() retorne um array de funcionários.
@@ -46,11 +46,14 @@ class OrdemServico extends ConexaoMySQL
 
             if (!$result) {
                 echo "Erro ao realizar a alocação";
+                return false;
             } else {
                 echo "Alocação realizada com sucesso!";
+                return true;
             }
         } else {
             echo "Não existem funcionários disponíveis";
+            return false;
         }
     }
     // Se não houver funcionários disponíveis, você pode lidar com isso conforme necessário
