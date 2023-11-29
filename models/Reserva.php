@@ -1,6 +1,6 @@
 <?php
 
-require_once '../Conexao.php';
+require_once 'Conexao.php';
 
 class Reserva extends ConexaoMySQL {
     public $id_veiculo;

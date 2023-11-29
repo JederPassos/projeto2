@@ -1,6 +1,6 @@
 <?php
 
-require_once '../Conexao.php';
+require_once 'Conexao.php';
 
 class Possui extends ConexaoMySQL {
     public $id_tipo_servico;

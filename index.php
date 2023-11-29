@@ -44,13 +44,13 @@ echo $_SESSION['id'];
 
                 <div class="inputbox">
                     <label for="nome"> Modelo :</label>
-                    <input type="text" name="marca" id="marca" class="inputUser" required>
+                    <input type="text" name="modelo" id="marca" class="inputUser" required>
 
                 </div>
 
                 <div class="inputbox">
                     <label for="nome"> Placa :</label>
-                    <input type="text" name="marca" id="marca" class="inputUser" required>
+                    <input type="text" name="placa" id="marca" class="inputUser" required>
 
                 </div>
 

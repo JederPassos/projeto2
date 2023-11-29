@@ -3,7 +3,7 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Inclui o arquivo de configuração ou qualquer lógica necessária para obter a conexão
     // Certifique-se de incluir a lógica apropriada para obter a conexão com o banco de dados
-    require_once('Caminho/Para/Conexao.php');
+    require_once('models/Veiculo.php');
     require_once('models/OrdemServico.php');
 
     // Recupera os dados do formulário
@@ -14,25 +14,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $dataAgendada = $_POST["data_agendada"];
     $clienteId = $_POST["clienteid"];
 
-    // Cria uma instância da classe OrdemServico
-    $ordemServico = new OrdemServico();
+    // Cria uma instância da classe Veiculo
+    $veiculo = new Veiculo();
 
-    // Cria a ordem de serviço
-    $ordemCriada = $ordemServico->criarOrdemServico($dataAgendada, 'Situacao_Padrao', 'Descricao_Padrao', 1500.50, $clienteId);
+    // Cria o veículo associado ao cliente
+    $veiculoCriado = $veiculo->criarVeiculo($marca, $modelo, $placa, $clienteId);
 
-    if ($ordemCriada) {
-        // Insira aqui a lógica para obter o ID da ordem de serviço recém-criada
-        $id_ordem_servico = // Obtenha o ID da ordem de serviço recém-criada;
+    if ($veiculoCriado) {
+        // Obtenha o ID do veículo recém-criado (adicione a lógica necessária)
+        $idVeiculo = $veiculo->obterUltimoIdVeiculo();
+        // Cria uma instância da classe OrdemServico
+        $ordemServico = new OrdemServico();
 
+        // Cria a ordem de serviço associada ao veículo
+        $ordemCriada = $ordemServico->criarOrdemServico($dataAgendada, 0, 'Descricao_Padrao', 1500, $idVeiculo);
+
+        if ($ordemCriada) {
+            // Obtenha o ID da ordem de serviço recém-criada (adicione a lógica necessária)
+            $id_ordem_servico = $ordemServico->obterUltimoIdOrdemServico();
             // Insira a lógica para alocar automaticamente um funcionário à ordem de serviço
             $ordemServico->inserirAlocacaoAutomatica($id_ordem_servico);
 
-        if ($ordemServico) {
             echo "<script>alert('Ordem criada com sucesso!')</script>";
         } else {
             echo "<script>alert('Erro ao criar a ordem de serviço!')</script>";
         }
     } else {
-        echo "Erro ao agendar a ordem de serviço.";
+        echo "Erro ao criar o veículo.";
     }
 }
+?>

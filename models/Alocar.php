@@ -1,6 +1,7 @@
 <?php
 
-require_once '../Conexao.php';
+require_once 'Conexao.php';
+require_once 'Funcionario.php';
 
 class Alocar extends ConexaoMySQL
 {
@@ -63,16 +64,15 @@ class Alocar extends ConexaoMySQL
         }
     }
 
-    public function obterFuncionariosDisponiveis()
-    {
-        $query = "SELECT * FROM Funcionario WHERE id NOT IN (SELECT Funcionario_id FROM Alocar)";
+    public function obterFuncionariosDisponiveis() {
+        $query = "SELECT id, nome FROM Funcionario WHERE id NOT IN (SELECT Funcionario_id FROM Alocar)";
         $result = $this->conexao->query($query);
 
         $funcionariosDisponiveis = array();
 
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $funcionario = new Funcionario($row['id'], $row['nome']); // Substitua com os atributos reais
+                $funcionario = new Funcionario($row['id'], $row['nome']);
                 $funcionariosDisponiveis[] = $funcionario;
             }
         }

@@ -1,6 +1,6 @@
 <?php
 
-require_once '../Conexao.php';
+require_once 'Conexao.php';
 
 class Funcionario extends ConexaoMySQL {
     public $id;

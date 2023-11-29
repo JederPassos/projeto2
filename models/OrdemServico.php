@@ -1,6 +1,6 @@
 <?php
 
-require_once '../Conexao.php';
+require_once 'Conexao.php';
 require_once 'Alocar.php';
 
 class OrdemServico extends ConexaoMySQL
@@ -56,9 +56,7 @@ class OrdemServico extends ConexaoMySQL
             return false;
         }
     }
-    // Se não houver funcionários disponíveis, você pode lidar com isso conforme necessário
-
-
+    // Restante da classe permanece o mesmo...
 
     public function obterTodasOrdensServico()
     {
@@ -112,10 +110,47 @@ class OrdemServico extends ConexaoMySQL
             return false;
         }
     }
-}
 
-// Exemplo de uso:
-// $ordemServico = new OrdemServico();
-// $ordemServico->criarOrdemServico('2023-11-23', 2, 'Nova descrição', 150.00, 2);
-// $ordensServico = $ordemServico->obterTodasOrdensServico();
-// print_r($ordensServico);
+    public function obterOrdensServicoPorSituacao($situacao)
+    {
+        $query = "SELECT os.*, f.nome AS nome_funcionario
+                  FROM Ordem_Servico os
+                  INNER JOIN Alocar a ON os.id = a.Ordem_Servico_id
+                  INNER JOIN Funcionario f ON a.Funcionario_id = f.id
+                  WHERE os.Situacao = $situacao";
+
+        $result = $this->conexao->query($query);
+
+        $ordensServico = array();
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $ordensServico[] = $row;
+            }
+        }
+
+        return $ordensServico;
+    }
+
+
+    public function finalizarOrdemServico($ordemID)
+    {
+        $query = "UPDATE Ordem_Servico SET Situacao = 1 WHERE id = $ordemID";
+        $result = $this->conexao->query($query);
+
+        return $result;
+    }
+
+    public function desalocarFuncionarioResponsavel($ordemID)
+    {
+        $query = "DELETE FROM Alocar WHERE Ordem_Servico_id = $ordemID";
+        $result = $this->conexao->query($query);
+
+        return $result;
+    }
+
+    public function obterUltimoIdOrdemServico()
+    {
+        return $this->conexao->insert_id;
+    }
+}

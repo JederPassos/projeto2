@@ -1,11 +1,11 @@
 <?php
 
 class ConexaoMySQL {
-    protected $host = "localhost";
-    protected $usuario = "root";
-    protected $senha = "";
-    protected $banco = "DB_oficial";
-    protected $conexao;
+    public $host = "localhost";
+    public $usuario = "root";
+    public $senha = "";
+    public $banco = "DB_oficial";
+    public $conexao;
 
  
     public function __construct() {
