@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $ordemServico = new OrdemServico();
 
         // Cria a ordem de serviço associada ao veículo
-        $ordemCriada = $ordemServico->criarOrdemServico($dataAgendada, 0, 'Descricao_Padrao', 1500, $idVeiculo);
+        $ordemCriada = $ordemServico->criarOrdemServico($dataAgendada, 0, 'Descricao_Padrao', 400, $idVeiculo);
 
         if ($ordemCriada) {
             // Obtenha o ID da ordem de serviço recém-criada (adicione a lógica necessária)
