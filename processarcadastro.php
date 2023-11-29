@@ -11,7 +11,11 @@ require('models/Cliente.php');
     $cliente = new Cliente();
 
     // Faça a inserção no banco de dados
-    $insercao_sucesso = $cliente->criarCliente($telefone, $email, $nome, $senha);
+    try {
+        $insercao_sucesso = $cliente->criarCliente($telefone, $email, $nome, $senha);
+    } catch (\Throwable $th) {
+        echo "Erro:".$th;
+    }
 
      // Verifique se a inserção foi bem-sucedida
      if ($insercao_sucesso) {

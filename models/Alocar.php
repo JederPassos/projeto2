@@ -2,20 +2,19 @@
 
 require_once '../Conexao.php';
 
-class Alocar extends ConexaoMySQL {
+class Alocar extends ConexaoMySQL
+{
     public $Funcionario_id;
     public $Ordem_Servico_id;
 
-    public function __construct($Funcionario_id, $Ordem_Servico_id) {
-        $this->Funcionario_id = $Funcionario_id;
-        $this->Ordem_Servico_id = $Ordem_Servico_id;
-
-        // Chame o construtor da classe pai para estabelecer a conexão com o banco de dados
+    public function __construct()
+    {
         parent::__construct();
     }
 
     // Método para alocar um funcionário a uma ordem de serviço
-    public function alocarFuncionario($Funcionario_id, $Ordem_Servico_id) {
+    public function alocarFuncionario($Funcionario_id, $Ordem_Servico_id)
+    {
         $query = "INSERT INTO Alocar (Funcionario_id, Ordem_Servico_id) VALUES ($Funcionario_id, $Ordem_Servico_id)";
         $result = $this->conexao->query($query);
 
@@ -27,7 +26,8 @@ class Alocar extends ConexaoMySQL {
     }
 
     // Método para obter todos os funcionários alocados para uma ordem de serviço
-    public function obterFuncionariosAlocados($Ordem_Servico_id) {
+    public function obterFuncionariosAlocados($Ordem_Servico_id)
+    {
         $query = "SELECT * FROM Alocar WHERE Ordem_Servico_id = $Ordem_Servico_id";
         $result = $this->conexao->query($query);
 
@@ -35,7 +35,13 @@ class Alocar extends ConexaoMySQL {
 
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $alocacao = new Alocar($row['Funcionario_id'], $row['Ordem_Servico_id']);
+                // Instancia um objeto Alocar sem usar o construtor
+                $alocacao = new Alocar();
+
+                // Define as propriedades diretamente (sem o construtor)
+                $alocacao->Funcionario_id = $row['Funcionario_id'];
+                $alocacao->Ordem_Servico_id = $row['Ordem_Servico_id'];
+
                 $alocacoes[] = $alocacao;
             }
         }
@@ -43,8 +49,10 @@ class Alocar extends ConexaoMySQL {
         return $alocacoes;
     }
 
+
     // Método para desalocar um funcionário de uma ordem de serviço
-    public function desalocarFuncionario($Funcionario_id, $Ordem_Servico_id) {
+    public function desalocarFuncionario($Funcionario_id, $Ordem_Servico_id)
+    {
         $query = "DELETE FROM Alocar WHERE Funcionario_id = $Funcionario_id AND Ordem_Servico_id = $Ordem_Servico_id";
         $result = $this->conexao->query($query);
 
@@ -54,6 +62,21 @@ class Alocar extends ConexaoMySQL {
             return false;
         }
     }
-}
 
-?>
+    public function obterFuncionariosDisponiveis()
+    {
+        $query = "SELECT * FROM Funcionario WHERE id NOT IN (SELECT Funcionario_id FROM Alocar)";
+        $result = $this->conexao->query($query);
+
+        $funcionariosDisponiveis = array();
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $funcionario = new Funcionario($row['id'], $row['nome']); // Substitua com os atributos reais
+                $funcionariosDisponiveis[] = $funcionario;
+            }
+        }
+
+        return $funcionariosDisponiveis;
+    }
+}
